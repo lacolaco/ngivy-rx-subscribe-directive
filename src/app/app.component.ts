@@ -9,8 +9,4 @@ import { map } from "rxjs/operators";
 })
 export class AppComponent {
   source$ = interval(1000).pipe(map(i => ({ count: i })));
-
-  assertString(v: string) {
-    return v;
-  }
 }
