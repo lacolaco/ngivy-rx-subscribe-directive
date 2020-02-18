@@ -10,32 +10,32 @@ import {
 import { Observable, Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 
-export interface RxSubscribeFromContext<T> {
+export interface RxSubscribeContext<T> {
   $implicit: T;
 }
 
 @Directive({
-  selector: "[rxSubscribe][rxSubscribeFrom]"
+  selector: "[rxSubscribe]"
 })
-export class RxSubscribeFromDirective<T> implements OnInit, OnDestroy {
+export class RxSubscribeDirective<T> implements OnInit, OnDestroy {
   constructor(
     private vcRef: ViewContainerRef,
-    private templateRef: TemplateRef<RxSubscribeFromContext<T>>
+    private templateRef: TemplateRef<RxSubscribeContext<T>>
   ) {}
-  @Input("rxSubscribeFrom")
+  @Input("rxSubscribe")
   source$: Observable<T>;
 
   private readonly onDestroy$ = new Subject();
 
   static ngTemplateContextGuard<T>(
-    dir: RxSubscribeFromDirective<T>,
+    dir: RxSubscribeDirective<T>,
     ctx: unknown
-  ): ctx is RxSubscribeFromContext<T> {
+  ): ctx is RxSubscribeContext<T> {
     return true;
   }
 
   ngOnInit() {
-    let viewRef: EmbeddedViewRef<RxSubscribeFromContext<T>>;
+    let viewRef: EmbeddedViewRef<RxSubscribeContext<T>>;
     this.source$.pipe(takeUntil(this.onDestroy$)).subscribe(source => {
       if (!viewRef) {
         viewRef = this.vcRef.createEmbeddedView(this.templateRef, {

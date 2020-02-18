@@ -1,4 +1,4 @@
-<div *rxSubscribe="let state; from: source$">
+<div *rxSubscribe="source$; let state">
   <!-- state: { count: number } -->
   {{ state.count }}
 </div>
