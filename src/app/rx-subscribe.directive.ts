@@ -15,7 +15,7 @@ export interface RxSubscribeFromContext<T> {
 }
 
 @Directive({
-  selector: "[rxSubscribe],[rxSubscribeFrom]"
+  selector: "[rxSubscribe][rxSubscribeFrom]"
 })
 export class RxSubscribeFromDirective<T> implements OnInit, OnDestroy {
   constructor(
